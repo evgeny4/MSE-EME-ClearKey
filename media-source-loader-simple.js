@@ -16,17 +16,22 @@ SourceBufferLoaderSimple.prototype = {
         const segmentFile = this.segments[index];
         const request = new XMLHttpRequest();
         const sourcebuff = this.sb;
+
+//        console.log("GET " + segmentFile);
+
         request.open("GET", segmentFile);
+  //      request.setRequestHeader('Cache-Control', 'no-cache');
+    
         request.responseType = "arraybuffer";
         request.addEventListener("load", function() {
             sourcebuff.appendBuffer(new Uint8Array(request.response));
         });
         request.addEventListener("error", function() {
-            log("Error request " + segmentFile);
+            console.log("Error request " + segmentFile);
             endTest();
         });
         request.addEventListener("abort", function() {
-            log("Aborted request" + segmentFile);
+            console.log("Aborted request" + segmentFile);
             endTest();
         });
         request.send(null);

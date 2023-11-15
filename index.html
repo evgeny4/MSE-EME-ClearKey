@@ -13,25 +13,24 @@
     var video;
     function runTest() {
 
+        document.cookie='testCookie=key;path=/';
         video = document.getElementsByTagName('video')[0];
 
         let emeHandler = new EncryptedMediaHandler(video, videoConf, audioConf);
+        emeHandler.installKeys(video);
 
         let ms = new MediaSourceLoaderSimple(video);
-
         ms.onready = function() {
-            log("Media source is opened");
+            console.log("Media source is opened");
             ms.createSourceBuffer(videoConf, 0);
             ms.createSourceBuffer(audioConf, 0);
-            video.play();
         };
     }
     </script>
 </head>
 <body onload="runTest()">
-    <video></video>
-    </div>
+    <video controls></video>
     <br>
-    <div id="log"> </div
+    <div id="log"> </div>
 </body>
-</html>
+</html>     
